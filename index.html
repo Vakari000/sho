@@ -23,11 +23,27 @@
         }
 
         function salvarNoCSV(texto) {
-            // Implemente aqui a lógica para salvar o texto em um arquivo CSV
-            // Pode ser usando JavaScript ou uma chamada AJAX para um backend que fará isso
-            // Exemplo:
-            // var csvData = texto + '\n'; // Adiciona o texto ao CSV
-            // ... lógica para salvar em um arquivo CSV
+            var gistID = "92e07b389b3a352889c56ade95c5759c"; // Seu ID do Gist
+            var authToken = "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"; // Seu token de acesso pessoal do GitHub
+            var url = "https://api.github.com/gists/" + gistID;
+
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': 'token ' + authToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    files: {
+                        "texto.txt": {
+                            content: texto
+                        }
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Erro:', error));
         }
     </script>
 </body>
