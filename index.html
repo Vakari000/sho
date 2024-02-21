@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input de Mensagens</title>
+    <title>Meu Site</title>
 </head>
 <body>
-    <h1>Input de Mensagens</h1>
-    <input type="text" id="mensagemInput" placeholder="Digite sua mensagem...">
-    <button onclick="enviarMensagem()">Enviar</button>
+    <textarea id="texto" rows="10" cols="50" maxlength="2000"></textarea><br>
+    <button onclick="enviarTexto()">Enviar</button>
 
     <script>
-        function enviarMensagem() {
-            var mensagem = document.getElementById('mensagemInput').value;
-            if (mensagem.trim() !== '') {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        alert('Mensagem enviada com sucesso!');
-                        document.getElementById('mensagemInput').value = '';
-                    }
-                };
-                xhttp.open("GET", "salvar_mensagem.php?mensagem=" + mensagem, true);
-                xhttp.send();
+        function enviarTexto() {
+            var texto = document.getElementById('texto').value;
+            if (texto.trim() !== '') {
+                // Chamada para armazenar no arquivo CSV
+                salvarNoCSV(texto);
+                alert('Texto enviado com sucesso!');
+                document.getElementById('texto').value = ''; // Limpa a caixa de texto
             } else {
-                alert('Por favor, digite uma mensagem.');
+                alert('Por favor, insira algum texto!');
             }
+        }
+
+        function salvarNoCSV(texto) {
+            // Implemente aqui a lógica para salvar o texto em um arquivo CSV
+            // Pode ser usando JavaScript ou uma chamada AJAX para um backend que fará isso
+            // Exemplo:
+            // var csvData = texto + '\n'; // Adiciona o texto ao CSV
+            // ... lógica para salvar em um arquivo CSV
         }
     </script>
 </body>
 </html>
+
